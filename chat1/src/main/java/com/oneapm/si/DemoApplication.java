@@ -12,34 +12,33 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
-@EnableSwagger2
+//@EnableSwagger2
 @SpringBootApplication
-@ComponentScan("com.oneapm.si")
 public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	public Docket newsApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("greetings")
-				.apiInfo(apiInfo())
-				.select()
-				.paths(regex("/greeting.*"))
-				.build();
-	}
-
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("Spring REST Sample with Swagger")
-				.description("Spring REST Sample with Swagger")
-				.termsOfServiceUrl("http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm?Open")
-				.contact("Niklas Heidloff")
-				.license("Apache License Version 2.0")
-				.licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE")
-				.version("2.0")
-				.build();
-	}
+//	@Bean
+//	public Docket newsApi() {
+//		return new Docket(DocumentationType.SWAGGER_2)
+//				.groupName("greetings")
+//				.apiInfo(apiInfo())
+//				.select()
+//				.paths(regex("/greeting.*"))
+//				.build();
+//	}
+//
+//	private ApiInfo apiInfo() {
+//		return new ApiInfoBuilder()
+//				.title("Spring REST Sample with Swagger")
+//				.description("Spring REST Sample with Swagger")
+//				.termsOfServiceUrl("http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm?Open")
+//				.contact("Niklas Heidloff")
+//				.license("Apache License Version 2.0")
+//				.licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE")
+//				.version("2.0")
+//				.build();
+//	}
 }
