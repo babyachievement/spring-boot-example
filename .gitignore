@@ -1,0 +1,17 @@
+﻿#过滤.class文件
+*.class
+*.jar
+*.log
+*.iml
+*.idea/
+*.dat
+#过虑文件夹
+bin/
+*/target/
+lib/
+.project
+.settings/
+.classpath
+*.project
+*.classpath
+*/out/
