@@ -1,4 +1,0 @@
-create TABLE USER (
-  id IDENTITY ,
-  age INTEGER ,
-  NAME VARCHAR(64));
