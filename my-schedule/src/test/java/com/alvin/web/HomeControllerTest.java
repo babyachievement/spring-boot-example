@@ -25,7 +25,7 @@ public class HomeControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void contextLoads() throws Exception {
+    public void indexTest() throws Exception {
         this.mvc.perform(get("/")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
