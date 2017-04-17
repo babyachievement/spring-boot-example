@@ -1,0 +1,37 @@
+
+
+si.server.address: 127.0.0.1
+si.server.port: 2021
+
+
+server:
+  port: 8080
+
+
+logging:
+  level: debug
+
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/oneapm_si
+    username: root
+    password: oneapm_si
+
+
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:msyql://10.128.106.153:3306/oneapm_si
+    username: root
+    password: oneapm_si
+
+---
+spring:
+  profiles:
+    active: dev
+
+
