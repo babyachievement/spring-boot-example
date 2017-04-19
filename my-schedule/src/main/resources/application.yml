@@ -10,22 +10,28 @@ server:
 
 logging:
   level: debug
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+flyway:
+  locations: classpath:db/migration/mysql
+
 
 
 ---
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/oneapm_si
+    url: jdbc:mysql://localhost:3306/demo
     username: root
-    password: oneapm_si
-
+    password: woshi123
 
 ---
 spring:
   profiles: prod
   datasource:
-    url: jdbc:msyql://10.128.106.153:3306/oneapm_si
+    url: jdbc:msyql://10.128.106.153:3306/demo
     username: root
     password: oneapm_si
 

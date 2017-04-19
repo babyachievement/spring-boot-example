@@ -13,6 +13,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * @SpringApplicationConfiguration,
+ * @ContextConfiguration with the SpringApplicationContextLoader,
+ * @IntegrationTest or @WebIntegrationTest
+ *
+ * 从1.4开始@SpringBootTest替代了以上所有
+ *
+ * 可以参考
+ * https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.4-Release-Notes
+ */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
