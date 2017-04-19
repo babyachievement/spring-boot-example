@@ -3,6 +3,7 @@ package com.alvin.book;
 import com.alvin.book.entity.Book;
 import com.alvin.book.service.BookReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by Administrator on 2017/4/18.
  */
 @RestController
-@RequestMapping("/books/")
+@RequestMapping("/books")
 public class BookReadingController {
     @Autowired
     private BookReadingService bookReadingService;
@@ -20,5 +21,11 @@ public class BookReadingController {
     @RequestMapping(value = "/", produces = "application/json; charset=UTF-8")
     public List<Book> getAllBooks() {
         return bookReadingService.getAllBooks();
+    }
+
+
+    @RequestMapping(value = "/author/{author}")
+    public Book getBookByAuthor(@PathVariable(name = "author") String author) {
+        return bookReadingService.getBookByAuthor(author);
     }
 }

@@ -1,8 +1,10 @@
 package com.alvin.book.service;
 
-import com.alvin.book.dao.ReadingListRepository;
+import com.alvin.book.dao.ReadingBookRepository;
 import com.alvin.book.entity.Book;
+import com.alvin.book.entity.QBook;
 import com.alvin.book.service.impl.BookReadingServiceImpl;
+import com.querydsl.core.types.Predicate;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -18,15 +20,27 @@ import static org.mockito.BDDMockito.given;
 public class BookReadingServiceTest {
     @Test
     public void getAllBooks() throws Exception {
-        ReadingListRepository readingListRepository = Mockito.mock(ReadingListRepository.class);
+        ReadingBookRepository readingBookRepository = Mockito.mock(ReadingBookRepository.class);
         List<Book> books = Mockito.mock(List.class);
 
         given(books.isEmpty()).willReturn(true);
-        given(readingListRepository.findAll()).willReturn(books);
+        given(readingBookRepository.findAll()).willReturn(books);
 
-        BookReadingServiceImpl bookReadingService = new BookReadingServiceImpl(readingListRepository);
+        BookReadingServiceImpl bookReadingService = new BookReadingServiceImpl(readingBookRepository);
         List<Book> all = bookReadingService.getAllBooks();
         assertThat(all.isEmpty(), is(true));
     }
 
+    @Test
+    public void testGetBookByAuthor() throws Exception {
+        ReadingBookRepository readingBookRepository = Mockito.mock(ReadingBookRepository.class);
+
+        QBook book = QBook.book;
+        Predicate authorEqual = book.author.equalsIgnoreCase("");
+        given(readingBookRepository.findOne(authorEqual)).willReturn(null);
+
+        BookReadingServiceImpl bookReadingService = new BookReadingServiceImpl(readingBookRepository);
+        Book all = bookReadingService.getBookByAuthor("");
+        assertThat(all==null, is(true));
+    }
 }

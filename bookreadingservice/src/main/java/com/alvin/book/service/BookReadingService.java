@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface BookReadingService {
     List<Book> getAllBooks();
+
+    Book getBookByAuthor(String author);
 }

@@ -23,15 +23,21 @@ flyway:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/demo
+    url: jdbc:mysql://localhost:3306/demo?useSSL=false
     username: root
     password: woshi123
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 1 # 配置初始化大小
+    maxActive: 20 # 最大
+    minIdle: 1  # 最小
+    maxWait: 60000 # 获取连接等待超时的时间
 
+    # https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
 ---
 spring:
   profiles: prod
   datasource:
-    url: jdbc:msyql://10.128.106.153:3306/demo
+    url: jdbc:msyql://10.128.106.153:3306/demo?useSSL=false
     username: root
     password: oneapm_si
 
