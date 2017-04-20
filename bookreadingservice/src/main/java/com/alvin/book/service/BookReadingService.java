@@ -1,6 +1,8 @@
 package com.alvin.book.service;
 
 import com.alvin.book.entity.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -10,5 +12,12 @@ import java.util.List;
 public interface BookReadingService {
     List<Book> getAllBooks();
 
-    Book getBookByAuthor(String author);
+    Page<Book> getBooksByAuthor(String author, PageRequest pageRequest);
+
+    /**
+     * 根据bookId获取Book
+     * @param bookId
+     * @return
+     */
+    Book getBookById(long bookId);
 }

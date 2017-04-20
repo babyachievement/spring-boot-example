@@ -7,6 +7,8 @@ import com.alvin.book.service.impl.BookReadingServiceImpl;
 import com.querydsl.core.types.Predicate;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -39,8 +41,10 @@ public class BookReadingServiceTest {
         Predicate authorEqual = book.author.equalsIgnoreCase("");
         given(readingBookRepository.findOne(authorEqual)).willReturn(null);
 
+        //分页排序
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC,"id"));
         BookReadingServiceImpl bookReadingService = new BookReadingServiceImpl(readingBookRepository);
-        Book all = bookReadingService.getBookByAuthor("");
-        assertThat(all==null, is(true));
+        Iterable<Book> booksByAuthor = bookReadingService.getBooksByAuthor("", new PageRequest(0, 10, sort));
+        assertThat(booksByAuthor==null, is(true));
     }
 }

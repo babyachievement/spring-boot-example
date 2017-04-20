@@ -1,0 +1,20 @@
+logging:
+  level: debug
+
+flyway:
+  locations: classpath:db/migration/mysql
+
+
+spring:
+  jpa:
+      hibernate:
+        ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?useSSL=false
+    username: root
+    password: password
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    initialSize: 1 # 配置初始化大小
+#    maxActive: 20 # 最大
+#    minIdle: 1  # 最小
+#    maxWait: 60000 # 获取连接等待超时的时间

@@ -32,7 +32,10 @@ spring:
     minIdle: 1  # 最小
     maxWait: 60000 # 获取连接等待超时的时间
 
+
     # https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
+logging:
+  level: debug
 ---
 spring:
   profiles: prod
