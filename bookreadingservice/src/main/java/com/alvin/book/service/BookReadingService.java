@@ -4,13 +4,11 @@ import com.alvin.book.entity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2017/4/18.
  */
 public interface BookReadingService {
-    List<Book> getAllBooks();
+    Page<Book> getAllBooks(PageRequest pageRequest);
 
     Page<Book> getBooksByAuthor(String author, PageRequest pageRequest);
 

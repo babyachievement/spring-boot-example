@@ -7,9 +7,12 @@ import com.alvin.book.service.impl.BookReadingServiceImpl;
 import com.querydsl.core.types.Predicate;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -23,14 +26,15 @@ public class BookReadingServiceTest {
     @Test
     public void getAllBooks() throws Exception {
         ReadingBookRepository readingBookRepository = Mockito.mock(ReadingBookRepository.class);
-        List<Book> books = Mockito.mock(List.class);
+        List<Book> books = new ArrayList<>();
+        PageRequest pageRequest = new PageRequest(0, 10);
+        PageImpl<Book> bookPage = new PageImpl<>(books);
+        given(readingBookRepository.findAll(pageRequest)).willReturn(bookPage);
 
-        given(books.isEmpty()).willReturn(true);
-        given(readingBookRepository.findAll()).willReturn(books);
 
         BookReadingServiceImpl bookReadingService = new BookReadingServiceImpl(readingBookRepository);
-        List<Book> all = bookReadingService.getAllBooks();
-        assertThat(all.isEmpty(), is(true));
+        Page<Book> all = bookReadingService.getAllBooks(pageRequest);
+        assertThat(all.getContent().isEmpty(), is(true));
     }
 
     @Test

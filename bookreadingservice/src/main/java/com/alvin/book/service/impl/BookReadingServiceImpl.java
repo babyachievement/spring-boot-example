@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2017/4/18.
  */
@@ -29,8 +27,8 @@ public class BookReadingServiceImpl implements BookReadingService {
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        return readingBookRepository.findAll();
+    public Page<Book> getAllBooks(PageRequest pageRequest) {
+        return readingBookRepository.findAll(pageRequest);
     }
 
     @Override

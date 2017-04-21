@@ -52,8 +52,14 @@ public class BookReadingController {
             @ApiResponse(code = 404, message = "资源不存在")
     }
     )
-    public List<Book> getAllBooks() {
-        return bookReadingService.getAllBooks();
+    public Page<Book> getAllBooks(@RequestParam(name = "page", defaultValue = "0") int page,
+                                  @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                  @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                                  @RequestParam(name = "isAsc", defaultValue = "true") boolean isAsc) {
+        //分页排序
+        Sort sort = new Sort(new Sort.Order(isAsc ? Sort.Direction.ASC : Sort.Direction.DESC, sortField));
+        Page<Book> allBooks = bookReadingService.getAllBooks(new PageRequest(page, pageSize, sort));
+        return allBooks;
     }
 
 
