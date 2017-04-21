@@ -19,6 +19,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -119,6 +120,33 @@ public class BookReadingControllerTest {
 
     @Test
     public void getBookById() throws Exception {
+        Book book = Book.builder().createdDate(new Date()).id(1L).author("alvin").title("book1").build();
+        when(bookReadingService.getBookById(1)).thenReturn(book);
+
+
+        this.mockMvc.perform(get("/books/book/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.author", is("alvin")))
+                .andExpect(jsonPath("$.title", is("book1")));
+
+        verify(bookReadingService, times(1)).getBookById(1L);
+        verifyNoMoreInteractions(bookReadingService);
+    }
+
+
+    @Test
+    public void whenBookNotFound404ErrorMessageShouldReturn() throws Exception {
+        when(bookReadingService.getBookById(anyLong())).thenReturn(null);
+
+        this.mockMvc.perform(get("/books/book/2").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", is("Book of [2] not found")))
+                .andExpect(jsonPath("$.code", is(404)));
+
+
+        verify(bookReadingService, times(1)).getBookById(2L);
+        verifyNoMoreInteractions(bookReadingService);
     }
 
     @Test
