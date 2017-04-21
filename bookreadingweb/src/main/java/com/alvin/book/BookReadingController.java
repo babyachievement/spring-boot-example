@@ -16,10 +16,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -40,7 +42,7 @@ public class BookReadingController {
     @Autowired
     private BookReadingService bookReadingService;
 
-    @RequestMapping(value = {"/", ""}, produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+    @GetMapping(value = {"/", ""}, produces = "application/json; charset=UTF-8")
     @ApiOperation(value = "获取所有图书信息", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "成功获取列表"),
@@ -60,9 +62,8 @@ public class BookReadingController {
     }
 
 
-    @RequestMapping(value = "/book", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-            MediaType
-                    .APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/book", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+            MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "保存图书信息")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "保存图书失败")
@@ -80,7 +81,7 @@ public class BookReadingController {
 
     }
 
-    @RequestMapping(value = "/book/{bookId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/book/{bookId}")
     @ApiOperation(value = "根据ID删除图书信息")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "删除失败")
@@ -93,7 +94,7 @@ public class BookReadingController {
         return new BasicMessage("删除成功");
     }
 
-    @RequestMapping(value = "/book/{bookId}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+    @GetMapping(value = "/book/{bookId}", produces = "application/json; charset=UTF-8")
     @ApiOperation(value = "根据ID获取图书信息", response = Book.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "成功获取书籍信息"),
@@ -110,8 +111,7 @@ public class BookReadingController {
     }
 
 
-    @RequestMapping(value = "/author/{author}", produces = "application/json; charset=UTF-8", method = RequestMethod
-            .GET)
+    @GetMapping(value = "/author/{author}", produces = "application/json; charset=UTF-8")
     @ApiOperation(value = "根据作者名称获取作者的书", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "成功获取列表"),
