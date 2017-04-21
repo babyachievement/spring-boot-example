@@ -20,4 +20,8 @@ public interface BookReadingService {
      * @return
      */
     Book getBookById(long bookId);
+
+    Book save(Book book);
+
+    int deleteBookById(long bookId);
 }

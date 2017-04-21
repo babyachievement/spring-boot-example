@@ -12,15 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -50,7 +55,37 @@ public class BookReadingController {
     }
 
 
-    @RequestMapping(value = "/{bookId}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/book", method = RequestMethod.PUT)
+    @ApiOperation(value = "保存图书信息")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "保存图书失败")
+    })
+    public ResponseEntity<Book> saveBook(@RequestBody Book book, UriComponentsBuilder ucb) {
+        Book result = bookReadingService.save(book);
+        HttpHeaders headers = new HttpHeaders();
+        URI locationUri = ucb.path(String.valueOf(result.getId()))
+                .build().toUri();
+
+        headers.setLocation(locationUri);
+
+        return new ResponseEntity<Book>(result, headers, HttpStatus.CREATED);
+
+    }
+
+    @RequestMapping(value = "/book/{bookId}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "根据ID删除图书信息")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "删除失败")
+    })
+    public String deleteBook(@PathVariable(name = "bookId") long bookId) {
+        int result = bookReadingService.deleteBookById(bookId);
+        if (result == 0) {
+            return "删除失败";
+        }
+        return "删除成功";
+    }
+
+    @RequestMapping(value = "/book/{bookId}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
     @ApiOperation(value = "根据ID获取图书信息", response = Book.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "成功获取书籍信息"),

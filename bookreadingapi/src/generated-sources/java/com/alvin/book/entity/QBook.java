@@ -21,11 +21,15 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath author = createString("author");
 
+    public final NumberPath<Long> createdDate = createNumber("createdDate", Long.class);
+
     public final StringPath description = createString("description");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath isbn = createString("isbn");
+
+    public final NumberPath<Long> modifiedDate = createNumber("modifiedDate", Long.class);
 
     public final StringPath reader = createString("reader");
 

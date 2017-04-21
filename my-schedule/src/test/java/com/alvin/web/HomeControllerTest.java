@@ -14,7 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HomeController.class)
-
 /**
  * If you need to configure elements of the auto-configuration (for example when servlet filters should be applied)
  * you can use attributes in the @AutoConfigureMockMvc annotation.

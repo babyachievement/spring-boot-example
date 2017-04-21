@@ -66,4 +66,21 @@ public class BookReadingServiceImpl implements BookReadingService {
         Book one = readingBookRepository.findOne(idEqual);
         return one;
     }
+
+    @Override
+    public Book save(Book book) {
+        Book result = readingBookRepository.save(book);
+        return result;
+    }
+
+    @Override
+    public int deleteBookById(long bookId) {
+        try {
+            readingBookRepository.delete(bookId);
+        } catch (Exception e) {
+            logger.error("删除ID为[" +bookId+"]的Book 失败", e);
+            return 0;
+        }
+        return 1;
+    }
 }

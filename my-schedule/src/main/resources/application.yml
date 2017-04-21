@@ -10,6 +10,7 @@ server:
 
 logging:
   level: debug
+
 spring:
   jpa:
     hibernate:
@@ -17,8 +18,7 @@ spring:
     show-sql: true
 flyway:
   locations: classpath:db/migration/mysql
-
-
+  clean-on-validation-error: true
 
 ---
 spring:
@@ -35,8 +35,6 @@ spring:
 
 
     # https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
-logging:
-  level: debug
 ---
 spring:
   profiles: prod
