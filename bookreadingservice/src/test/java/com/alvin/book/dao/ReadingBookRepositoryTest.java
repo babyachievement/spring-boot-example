@@ -16,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,14 +39,8 @@ public class ReadingBookRepositoryTest {
     static {
 
         bookList = new ArrayList<>();
-        Book book = new Book();
-        book.setAuthor("alvin");
-        book.setTitle("title1");
-        bookList.add(book);
-        Book book2 = new Book();
-        book2.setAuthor("alvin");
-        book2.setTitle("title2");
-        bookList.add(book2);
+        bookList.add(Book.builder().author("alvin").title("title1").createdDate(new Date()).build());
+        bookList.add(Book.builder().author("alvin").title("title2").createdDate(new Date()).build());
     }
 
     @Before

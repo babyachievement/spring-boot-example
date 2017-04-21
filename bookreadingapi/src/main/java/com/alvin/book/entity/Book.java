@@ -1,7 +1,11 @@
 package com.alvin.book.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Tolerate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,15 +20,19 @@ import java.util.Date;
 
 /**
  * Created by Administrator on 2017/4/18.
+ * Should not use @Data and @Entity together.
+ * Lombok will generate hashCode() and equals() for you using all fields - id included, which should be avoided
  */
 @Entity
 @Table(name = "book")
-@Data
+@Getter
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Book {
     @Id
     @GeneratedValue
     @ApiModelProperty(notes = "数据库自动生成的ID")
+    @Setter(value = AccessLevel.PROTECTED)
     private Long id;
     @ApiModelProperty(notes = "读者姓名")
     private String reader;
@@ -47,4 +55,9 @@ public class Book {
     @Column(name = "modified_date")
     @LastModifiedDate
     private Date modifiedDate;
+
+    @Tolerate
+    public Book() {
+
+    }
 }

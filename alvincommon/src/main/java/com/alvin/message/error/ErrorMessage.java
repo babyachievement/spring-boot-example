@@ -1,4 +1,4 @@
-package com.alvin.error;
+package com.alvin.message.error;
 
 /**
  * Created by Administrator on 2017/4/19.

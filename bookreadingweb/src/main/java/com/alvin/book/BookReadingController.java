@@ -3,7 +3,8 @@ package com.alvin.book;
 import com.alvin.book.entity.Book;
 import com.alvin.book.exception.BookNotFoundException;
 import com.alvin.book.service.BookReadingService;
-import com.alvin.error.ErrorMessage;
+import com.alvin.message.BasicMessage;
+import com.alvin.message.error.ErrorMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +43,7 @@ public class BookReadingController {
     @Autowired
     private BookReadingService bookReadingService;
 
-    @RequestMapping(value = "/", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", ""}, produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
     @ApiOperation(value = "获取所有图书信息", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "成功获取列表"),
@@ -55,7 +57,9 @@ public class BookReadingController {
     }
 
 
-    @RequestMapping(value = "/book", method = RequestMethod.PUT)
+    @RequestMapping(value = "/book", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+            MediaType
+                    .APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "保存图书信息")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "保存图书失败")
@@ -63,12 +67,13 @@ public class BookReadingController {
     public ResponseEntity<Book> saveBook(@RequestBody Book book, UriComponentsBuilder ucb) {
         Book result = bookReadingService.save(book);
         HttpHeaders headers = new HttpHeaders();
-        URI locationUri = ucb.path(String.valueOf(result.getId()))
+        URI locationUri = ucb.path(String.valueOf(null != result ? result.getId() : 0))
                 .build().toUri();
 
         headers.setLocation(locationUri);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        return new ResponseEntity<Book>(result, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
 
     }
 
@@ -77,12 +82,12 @@ public class BookReadingController {
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "删除失败")
     })
-    public String deleteBook(@PathVariable(name = "bookId") long bookId) {
+    public BasicMessage deleteBook(@PathVariable(name = "bookId") long bookId) {
         int result = bookReadingService.deleteBookById(bookId);
         if (result == 0) {
-            return "删除失败";
+            return new BasicMessage("删除失败");
         }
-        return "删除成功";
+        return new BasicMessage("删除成功");
     }
 
     @RequestMapping(value = "/book/{bookId}", produces = "application/json; charset=UTF-8", method = RequestMethod.GET)
