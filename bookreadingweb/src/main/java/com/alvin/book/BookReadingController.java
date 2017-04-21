@@ -4,7 +4,6 @@ import com.alvin.book.entity.Book;
 import com.alvin.book.exception.BookNotFoundException;
 import com.alvin.book.service.BookReadingService;
 import com.alvin.message.BasicMessage;
-import com.alvin.message.error.ErrorMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,13 +16,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -138,11 +135,11 @@ public class BookReadingController {
         return booksByAuthor;
     }
 
-    @ExceptionHandler(BookNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage bookNotFound(BookNotFoundException e) {
-        String bookId = e.getBookId();
-
-        return new ErrorMessage(HttpStatus.NOT_FOUND.value(), "Book of [" + bookId + "] not found");
-    }
+//    @ExceptionHandler(BookNotFoundException.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public ErrorMessage bookNotFound(BookNotFoundException e) {
+//        String bookId = e.getBookId();
+//
+//        return new ErrorMessage(HttpStatus.NOT_FOUND.value(), "Book of [" + bookId + "] not found");
+//    }
 }

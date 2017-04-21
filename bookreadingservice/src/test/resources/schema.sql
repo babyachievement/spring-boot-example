@@ -4,6 +4,7 @@ isbn VARCHAR (64),
 title VARCHAR (64),
 author VARCHAR (64),
 description VARCHAR(128),
+rank FLOAT,
 created_date DATETIME NOT NULL ,
 modified_date DATETIME,
   primary key (id)

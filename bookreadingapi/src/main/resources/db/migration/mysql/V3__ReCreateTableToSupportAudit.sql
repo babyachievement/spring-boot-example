@@ -5,8 +5,9 @@ CREATE TABLE `book` (
   `reader` varchar(64) DEFAULT NULL,
   `isbn` varchar(128) DEFAULT NULL,
   `title` varchar(128) DEFAULT NULL,
-  `author` varchar(64) DEFAULT NULL,
-  `description` varchar(128) DEFAULT NULL,
+  `author` varchar(128) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  `rank` FLOAT DEFAULT 5,
   `created_date` DATETIME NOT NULL ,
   `modified_date` DATETIME,
   PRIMARY KEY (`id`)

@@ -45,6 +45,9 @@ public class Book {
     @ApiModelProperty(notes = "描述")
     private String description;
 
+    @ApiModelProperty(notes = "评分")
+    private float rank;
+
     // Hibernate JAP 字段自动添加下划线问题
     // http://blog.csdn.net/xiaozaq/article/details/70157119
     // org.joda.time.DateTime, org.joda.time.LocalDateTime, java.util.Date, java.lang.Long, long
@@ -52,6 +55,10 @@ public class Book {
     @CreatedDate
     private Date createdDate;
 
+    /**
+     * Spring Data JPA Audit
+     * http://www.baeldung.com/database-auditing-jpa
+     */
     @Column(name = "modified_date")
     @LastModifiedDate
     private Date modifiedDate;
