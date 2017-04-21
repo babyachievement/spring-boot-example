@@ -140,10 +140,7 @@ public class BookReadingControllerTest {
         when(bookReadingService.getBookById(anyLong())).thenReturn(null);
 
         this.mockMvc.perform(get("/books/book/2").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message", is("Book of [2] not found")))
-                .andExpect(jsonPath("$.code", is(404)));
-
+                .andExpect(status().isNotFound());
 
         verify(bookReadingService, times(1)).getBookById(2L);
         verifyNoMoreInteractions(bookReadingService);

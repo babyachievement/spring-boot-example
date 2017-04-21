@@ -135,11 +135,4 @@ public class BookReadingController {
         return booksByAuthor;
     }
 
-//    @ExceptionHandler(BookNotFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public ErrorMessage bookNotFound(BookNotFoundException e) {
-//        String bookId = e.getBookId();
-//
-//        return new ErrorMessage(HttpStatus.NOT_FOUND.value(), "Book of [" + bookId + "] not found");
-//    }
 }
